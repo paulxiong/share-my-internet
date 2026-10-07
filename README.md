@@ -6,7 +6,15 @@ Built for one specific scenario: a non-technical person (on either side of the e
 
 Under the hood it's powered by [Tailscale](https://tailscale.com) (free, independently trusted — not something built for this project) acting as a VPN exit node. This app is just a friendly front end around Tailscale's CLI and web admin console.
 
-![Share My Internet welcome screen](docs/screenshot.png)
+Available in English and 中文 — pick a language the first time you open the app.
+
+<table>
+<tr><th>English</th><th>中文</th></tr>
+<tr>
+<td><img src="docs/screenshot.png" alt="Share My Internet welcome screen"></td>
+<td><img src="docs/screenshot-zh.png" alt="共享你的网络欢迎界面"></td>
+</tr>
+</table>
 
 ## Download
 
@@ -23,7 +31,13 @@ Grab the signed, notarized `.dmg` from the [Releases page](../../releases/latest
 
 Step 3 in practice — instructions and the live Tailscale page side by side, no window-switching:
 
-![Step-by-step guide with embedded Tailscale browser pane](docs/screenshot-browser.png)
+<table>
+<tr><th>English</th><th>中文</th></tr>
+<tr>
+<td><img src="docs/screenshot-browser.png" alt="Step-by-step guide with embedded Tailscale browser pane"></td>
+<td><img src="docs/screenshot-browser-zh.png" alt="分步指南，内嵌 Tailscale 浏览器面板"></td>
+</tr>
+</table>
 
 ## What's in this repo
 
