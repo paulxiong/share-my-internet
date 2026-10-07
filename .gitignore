@@ -1,0 +1,21 @@
+# Build artifacts
+.build/
+.release/
+*.app
+*.dSYM
+
+# Packaging leftovers
+*.zip
+*.dmg
+
+# macOS
+.DS_Store
+
+# Tooling-local config (not part of the project)
+.claude/
+
+# Superseded by legacy/command/SMInternet.command
+/SMInternet.command
+
+# Throwaway spike (see native/ShareMyInternetBeta for the real app)
+native/Spike/
