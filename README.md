@@ -6,6 +6,8 @@ Built for one specific scenario: a non-technical person (on either side of the e
 
 Under the hood it's powered by [Tailscale](https://tailscale.com) (free, independently trusted — not something built for this project) acting as a VPN exit node. This app is just a friendly front end around Tailscale's CLI and web admin console.
 
+![Share My Internet welcome screen](docs/screenshot.png)
+
 ## Download
 
 Grab the signed, notarized `.dmg` from the [Releases page](../../releases/latest) — no Gatekeeper warnings, just open and drag to Applications.
