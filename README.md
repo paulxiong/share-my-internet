@@ -21,6 +21,10 @@ Grab the signed, notarized `.dmg` from the [Releases page](../../releases/latest
 5. They follow the message's steps on their iPhone (install Tailscale, tap your invite link, pick your Mac as the exit node) and they're online.
 6. Click **Stop Sharing** whenever you're done — it turns the exit node back off and confirms on screen that it actually happened.
 
+Step 3 in practice — instructions and the live Tailscale page side by side, no window-switching:
+
+![Step-by-step guide with embedded Tailscale browser pane](docs/screenshot-browser.png)
+
 ## What's in this repo
 
 | Path | What it is |
