@@ -1,14 +1,15 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    let lang: AppLanguage
     let onChoice: (String) -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 22) {
             VStack(alignment: .leading, spacing: 6) {
-                Text("Share your internet\nwith an iPhone")
+                Text(L10n.welcomeTitle(lang))
                     .font(.title).bold()
-                Text("Simple, reversible, and safe.")
+                Text(L10n.welcomeSubtitle(lang))
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             }
@@ -16,22 +17,22 @@ struct WelcomeView: View {
             VStack(alignment: .leading, spacing: 16) {
                 FeatureRow(
                     icon: "wifi",
-                    title: "One click to share",
-                    detail: "Turn it on when you want to share — and off again just as easily, anytime."
+                    title: L10n.welcomeFeature1Title(lang),
+                    detail: L10n.welcomeFeature1Detail(lang)
                 )
                 FeatureRow(
                     icon: "checkmark.shield",
-                    title: "Built on Tailscale",
-                    detail: "A well-known, independently trusted app — not something made just for this. It handles the actual connection."
+                    title: L10n.welcomeFeature2Title(lang),
+                    detail: L10n.welcomeFeature2Detail(lang)
                 )
                 FeatureRow(
                     icon: "hand.wave",
-                    title: "A few pop-ups are normal",
-                    detail: "Sign-in or permission windows may appear the first time — just follow what they say."
+                    title: L10n.welcomeFeature3Title(lang),
+                    detail: L10n.welcomeFeature3Detail(lang)
                 )
             }
 
-            Text("Tip: The first time only, macOS may also ask for your password or Touch ID a few times. If you see **Allow** vs **Always Allow**, pick **Always Allow** so it won't ask again.")
+            Text(LocalizedStringKey(L10n.welcomeTip(lang)))
                 .font(.footnote)
                 .foregroundColor(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -39,9 +40,9 @@ struct WelcomeView: View {
             Spacer()
 
             HStack {
-                Button("Cancel") { onChoice("Cancel") }
+                Button(L10n.button("Cancel", lang)) { onChoice("Cancel") }
                 Spacer()
-                Button("Start Sharing") { onChoice("Start Sharing") }
+                Button(L10n.button("Start Sharing", lang)) { onChoice("Start Sharing") }
                     .keyboardShortcut(.defaultAction)
                     .buttonStyle(.borderedProminent)
             }

@@ -99,8 +99,25 @@ case "$cmd" in
     ;;
 
   build-message)
-    LINK="$1"; NAME="$2"
-    cat <<EOF
+    LINK="$1"; NAME="$2"; LANG_CODE="$3"
+    if [ "$LANG_CODE" = "zh" ]; then
+      cat <<EOF
+嗨！现在你可以用我的网络上网了，步骤如下：
+
+1. 从 App Store 下载免费的 Tailscale 应用（如果已经安装过，跳过这一步）：
+   https://tailscale.com/download/ios
+2. 打开 Tailscale 并登录（用 Apple 账号登录最简单）。
+   你的 iPhone 会询问是否允许 VPN 连接 —— 点“允许”。
+3. 点击下面这个链接并接受邀请（如果之前已经接受过，跳过这一步）——之后还有最后一步：
+   $LINK
+4. 最后一步：在 Tailscale 应用里确认显示“已连接”，然后点  Exit Node  并选择：  $NAME
+
+大功告成 —— 现在你已经在用我的网络了！
+
+随时可以停止：打开 Tailscale，点  Exit Node  选择  None。
+EOF
+    else
+      cat <<EOF
 Hi! You can now use my internet on your iPhone. Here's how:
 
 1. Install the free Tailscale app from the App Store (skip this if you already have it):
@@ -115,6 +132,7 @@ That's it — you're all done, and now using my internet!
 
 To stop anytime: open Tailscale, tap  Exit Node  and choose  None.
 EOF
+    fi
     ;;
 
   watchdog-start)

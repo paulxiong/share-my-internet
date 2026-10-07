@@ -1,21 +1,22 @@
 import SwiftUI
 
-private let successLine = "That's it — you're all done, and now using my internet!"
-
 struct ContentView: View {
     @ObservedObject var app: AppState
 
-    /// Step dialogs append "\n\nTip: <...>" to bodyText; split that off so
-    /// it can render smaller/secondary — it's a hint, not the instruction.
+    /// Step dialogs append a localized "\n\nTip: <...>" marker to bodyText;
+    /// split that off so it can render smaller/secondary — it's a hint, not
+    /// the instruction.
+    private var tipMarker: String { L10n.tipMarker(app.language) }
+
     private var mainText: String {
-        if let range = app.bodyText.range(of: "\n\nTip: ") {
+        if let range = app.bodyText.range(of: tipMarker) {
             return String(app.bodyText[app.bodyText.startIndex..<range.lowerBound])
         }
         return app.bodyText
     }
 
     private var tipText: String? {
-        if let range = app.bodyText.range(of: "\n\nTip: ") {
+        if let range = app.bodyText.range(of: tipMarker) {
             return String(app.bodyText[range.upperBound...])
         }
         return nil
@@ -39,8 +40,10 @@ struct ContentView: View {
     var body: some View {
         HSplitView {
             VStack(alignment: .leading, spacing: 16) {
-                if app.isWelcome {
-                    WelcomeView { app.resolve($0) }
+                if app.isLanguagePicker {
+                    LanguagePickerView { app.chooseLanguage($0) }
+                } else if app.isWelcome {
+                    WelcomeView(lang: app.language) { app.resolve($0) }
                 } else {
                     regularContent
                 }
@@ -74,7 +77,7 @@ struct ContentView: View {
                     .textSelection(.enabled)
 
                 if let tip = tipText {
-                    (Text("Tip: ") + styledText(tip))
+                    (Text(L10n.tipPrefix(app.language)) + styledText(tip))
                         .font(.footnote)
                         .foregroundColor(.secondary)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -93,14 +96,14 @@ struct ContentView: View {
         if app.isBusy {
             HStack {
                 ProgressView().scaleEffect(0.7)
-                Text("Checking…").foregroundColor(.secondary).font(.caption)
+                Text(L10n.checking(app.language)).foregroundColor(.secondary).font(.caption)
             }
         }
 
         HStack {
-            ForEach(app.buttons, id: \.self) { label in
-                Button(label) { app.resolve(label) }
-                    .keyboardShortcut(label == app.buttons.last ? .defaultAction : .none)
+            ForEach(app.buttons) { item in
+                Button(item.label) { app.resolve(item.id) }
+                    .keyboardShortcut(item.id == app.buttons.last?.id ? .defaultAction : .none)
             }
         }
         .disabled(app.isBusy)
@@ -108,13 +111,13 @@ struct ContentView: View {
 
     private var messagePreviewBox: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("Message for the iPhone person:")
+            Text(L10n.messageForIPhonePerson(app.language))
                 .font(.caption)
                 .foregroundColor(.secondary)
 
             VStack(alignment: .leading, spacing: 2) {
                 ForEach(Array(app.messagePreview.components(separatedBy: "\n").enumerated()), id: \.offset) { _, line in
-                    if line == successLine {
+                    if line == L10n.successLine(app.language) {
                         Text(line)
                             .font(.callout).bold()
                             .foregroundColor(.green)
